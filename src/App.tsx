@@ -1,7 +1,12 @@
+import PageHeader from './layouts/PageHeader';
+
 function App() {
     return (
         <>
-            <h1>Hello Word</h1>
+            <div className="max-h-screen flex flex-col">
+                <PageHeader />
+                <h1>hi</h1>
+            </div>
         </>
     );
 }
