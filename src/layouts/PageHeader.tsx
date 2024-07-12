@@ -3,12 +3,15 @@ import { ArrowLeft, Bell, Menu, Mic, Search, Upload, User } from 'lucide-react';
 
 import { Button } from '../components/Button';
 import logo from '../assets/Logo.png';
+import { useSidebarContext } from '../context/SidebarContext';
 
 const PageHeader = () => {
     const [showFullWidth, setShowFullWidth] = useState(false);
+    const { toggle } = useSidebarContext();
 
     return (
         <div className="flex gap-9 lg:gap-20 justify-between pt-2 px-4 mb-6">
+            <PageHeaderFirstSection hidden={showFullWidth} />
             <Button
                 variant="ghost"
                 size="icon"
@@ -17,14 +20,7 @@ const PageHeader = () => {
             >
                 <ArrowLeft className="flex-shrink-0" />
             </Button>
-            <div className={`md:flex items-center gap-4 flex-shrink-0 ${showFullWidth ? 'hidden ' : 'flex'}`}>
-                <Button variant="ghost" size="icon">
-                    <Menu className="flex-shrink-0" />
-                </Button>
-                <a href="/">
-                    <img src={logo} alt="Logo" className="h-6 " />
-                </a>
-            </div>
+
             <form className={`md:flex flex-grow justify-center gap-4 ${showFullWidth ? 'flex' : 'hidden'}`}>
                 <div className="flex flex-grow max-w-[600px]">
                     <input
@@ -54,6 +50,25 @@ const PageHeader = () => {
                     <User />
                 </Button>
             </div>
+        </div>
+    );
+};
+
+type PageHeaderFirstSectionProps = {
+    hidden?: boolean;
+};
+
+export const PageHeaderFirstSection = ({ hidden }: PageHeaderFirstSectionProps) => {
+    const { toggle } = useSidebarContext();
+
+    return (
+        <div className={`md:flex items-center gap-4 flex-shrink-0 ${hidden ? 'hidden ' : 'flex'}`}>
+            <Button variant="ghost" size="icon" onClick={toggle}>
+                <Menu className="flex-shrink-0" />
+            </Button>
+            <a href="/">
+                <img src={logo} alt="Logo" className="h-6 " />
+            </a>
         </div>
     );
 };
